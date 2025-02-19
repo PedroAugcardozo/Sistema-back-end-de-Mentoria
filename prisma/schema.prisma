@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Usuarios{
+  id String @id @default(uuid())
+  email String
+  senha String
+  nome String
+  area String
+  tipo String
+  id_Endereco String
+  avaliacoes Avaliacao[]
+  endereco_id Endereco @relation(fields: [id_Endereco], references: [id])
+}
+
+model Endereco{
+  id String @id @default(uuid())
+  rua String
+  cidade String
+  cep String
+  estado String
+  usuario Usuarios[]
+}
+
+model Avaliacao{
+  id String @id @default(uuid())
+  comentarios String
+  qualidade String
+  nota Int
+  userId String
+  usuario_id Usuarios @relation(fields: [userId], references: [id])
+}
