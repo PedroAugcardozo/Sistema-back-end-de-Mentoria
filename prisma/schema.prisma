@@ -17,9 +17,9 @@ model Usuarios{
   nome String
   area String
   tipo String
-  id_Endereco String
+  id_Endereco String @unique  
   avaliacoes Avaliacao[]
-  endereco_id Endereco @relation(fields: [id_Endereco], references: [id])
+  endereco Endereco @relation(fields: [id_Endereco], references: [id])
 }
 
 model Endereco{
@@ -28,7 +28,7 @@ model Endereco{
   cidade String
   cep String
   estado String
-  usuario Usuarios[]
+  usuario Usuarios?
 }
 
 model Avaliacao{

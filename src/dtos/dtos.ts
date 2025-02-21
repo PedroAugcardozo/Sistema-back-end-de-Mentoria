@@ -4,18 +4,19 @@ export interface dtoUsuarios{
     senha: string,
     email: string,
     tipo: string,
-    id: number
+    id: string,
+    id_Endereco: string
 }
 
-export interface endereco{
+export interface dtoEndereco{
     rua: string,
     estado: string,
     cidade: string,
     cep: string,
-    id: number
+    id: string
 }
 
-export interface avaliacao{
+export interface dtoAvaliacao{
     comportamento: string,
     qualidade: string,
     nota: string
