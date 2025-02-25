@@ -1,28 +1,33 @@
 import { PrismaClient } from "@prisma/client";
-import { dtoUsuarios, dtoEndereco } from "../dtos/dtos";
+import { dtoUsuarios, dtoEndereco, dtoAvaliacao } from "../dtos/dtos";
 
 const prisma = new PrismaClient
 
-class UserModel {
+export class UserModel {
     // Criar um novo usuário com endereço
     async create(
         usuarioData: Omit<dtoUsuarios, "id" | "id_Endereco">,
         enderecoData: Omit<dtoEndereco, "id">
     ): Promise<{ usuario: dtoUsuarios; endereco: dtoEndereco }> {
-        const createdUser = await prisma.usuarios.create({
-            data: {
-                ...usuarioData,
-                endereco: {
-                    create: enderecoData, // Criando o endereço junto com o usuário
+        try{
+            const createdUser = await prisma.usuarios.create({
+                data: {
+                    ...usuarioData,
+                    endereco: {
+                        create: enderecoData, // Criando o endereço junto com o usuário
+                    },
                 },
-            },
-            include: { endereco: true }, // Retorna os dados do endereço também
-        });
+                include: { endereco: true }, // Retorna os dados do endereço também
+            });
 
-        return { 
-            usuario: { ...createdUser, id_Endereco: createdUser.endereco.id }, 
-            endereco: createdUser.endereco 
-        };
+            return { 
+                usuario: { ...createdUser, id_Endereco: createdUser.endereco.id }, 
+                endereco: createdUser.endereco 
+            };
+        }catch(e){
+            console.log("erro ao criar tabela");
+            return e;
+        }
     }
 
     async getUser(id: string): Promise<dtoUsuarios | null> {

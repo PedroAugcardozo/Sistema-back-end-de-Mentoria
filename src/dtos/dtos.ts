@@ -20,6 +20,6 @@ export interface dtoAvaliacao{
     comportamento: string,
     qualidade: string,
     nota: string
-    usuario_id: number
-    id: number
+    usuario_id: number,
+    id: number,
 }
