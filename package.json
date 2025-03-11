@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/index.js",
+    "start": "ts-node src/index.ts",
     "dev": "tsx watch --env-file .env src/index.ts"
   },
   "keywords": [],
@@ -14,5 +14,10 @@
   "dependencies": {
     "@prisma/client": "^6.4.0",
     "prisma": "^6.4.0"
+  },
+  "type": "module",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
   }
 }

@@ -1,11 +1,20 @@
-FROM node:20.17.0
+# Usa a imagem do Node.js
+FROM node:18-alpine
 
-WORKDIR /api
+# Define o diretório de trabalho dentro do container
+WORKDIR /app
 
+# Copia o package.json e o package-lock.json para instalar as dependências primeiro
+COPY package*.json ./
+
+# Instala as dependências
+RUN npm install
+
+# Copia todos os arquivos para o diretório de trabalho
 COPY . .
 
-RUN rm -rf node_modules
-RUN npm i
-
-CMD ["npm","start"]
+# Expõe a porta que o servidor vai rodar
 EXPOSE 3000
+
+# Comando para iniciar o servidor
+CMD ["node", "src/index.ts"]
